@@ -1,8 +1,6 @@
-#include <Arduino.h>
-
 #include "config.h"
-#include "keycode.h"
-#include "keymap.h"
+#include <Arduino.h>
+#include "matrix.h"
 #include "bluetooth.h"
 
 void setup(void) {
@@ -29,4 +27,5 @@ void setup(void) {
 
 void loop() {
 
+  wait_for_event();
 }

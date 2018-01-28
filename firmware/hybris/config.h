@@ -24,4 +24,7 @@
     #define CAPS_LED 25
 
     #define DEBOUNCE 10
+
+    #define _delay_us(us) delayMicroseconds(us)
+    #define _delay(ms) delay(ms)
 #endif
