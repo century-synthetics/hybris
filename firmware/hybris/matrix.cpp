@@ -10,48 +10,55 @@ static uint8_t debouncing = DEBOUNCE;
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
-static matrix_row_t matrix_reversed[MATRIX_COLS];
-static matrix_row_t matrix_reversed_debouncing[MATRIX_COLS];
-
 static matrix_row_t read_cols(void);
 static void init_cols(void);
 static void unselect_rows(void);
 static void select_row(uint8_t row);
 
 
-inline
 uint8_t matrix_rows(void)
 {
     return MATRIX_ROWS;
 }
 
-inline
 uint8_t matrix_cols(void)
 {
     return MATRIX_COLS;
 }
 
+uint8_t row_pins[MATRIX_ROWS] = ROW_PINS;
+
 void matrix_init(void)
 {
-    // initialize row and col
-    unselect_rows();
-    init_cols();
+  for (uint8_t row = 0; row < MATRIX_ROWS; row++)
+  {
+    pinMode(row_pins[row], OUTPUT);
+  }
 
-    // initialize matrix state: all keys off
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        matrix[i] = 0;
-        matrix_debouncing[i] = 0;
-    }
+  pinMode(COL_SENSE_PIN, INPUT_PULLDOWN);
+  pinMode(COL_CLK_PIN, OUTPUT);
+  pinMode(COL_SHIFT_PIN, OUTPUT);
+  pinMode(COL_DATA_PIN, INPUT);
+
+  // initialize row and col
+  unselect_rows();
+  init_cols();
+
+  // initialize matrix state: all keys off
+  for (uint8_t i=0; i < MATRIX_ROWS; i++) {
+      matrix[i] = 0;
+      matrix_debouncing[i] = 0;
+  }
 }
 
 uint8_t matrix_scan(void)
 {
-    for (uint8_t i = 0; i < MATRIX_COLS; i++) {
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         select_row(i);
-        delayMicroseconds(30);  // without this wait read unstable value.
+        delayMicroseconds(5);  // without this wait read unstable value.
         matrix_row_t rows = read_cols();
-        if (matrix_reversed_debouncing[i] != rows) {
-            matrix_reversed_debouncing[i] = rows;
+        if (matrix_debouncing[i] != rows) {
+            matrix_debouncing[i] = rows;
             debouncing = DEBOUNCE;
         }
         unselect_rows();
@@ -61,20 +68,12 @@ uint8_t matrix_scan(void)
         if (--debouncing) {
             delay(1);
         } else {
-            for (uint8_t i = 0; i < MATRIX_COLS; i++) {
-                matrix_reversed[i] = matrix_reversed_debouncing[i];
+            for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+                matrix[i] = matrix_debouncing[i];
             }
         }
     }
-
-    for (uint8_t y = 0; y < MATRIX_ROWS; y++) {
-        matrix_row_t row = 0;
-        for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-            row |= ((matrix_reversed[x] & (1<<y)) >> y) << x;
-        }
-        matrix[y] = row;
-    }
-
+    
     return 1;
 }
 
@@ -84,34 +83,55 @@ bool matrix_is_modified(void)
     return true;
 }
 
-inline
+
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-    return (matrix[row] & ((matrix_row_t)1<<col));
 }
 
-inline
-matrix_row_t matrix_get_row(uint8_t row)
+
+matrix_row_t matrix_get_row(uint8_t row) 
 {
     return matrix[row];
 }
 
-void matrix_print(void)
+static void init_cols(void)
 {
+  digitalWrite(COL_CLK_PIN, LOW);
+  digitalWrite(COL_SHIFT_PIN, HIGH);
 }
 
-uint8_t matrix_key_count(void)
+static matrix_row_t read_cols(void)
 {
+  matrix_row_t row_read = 0; 
+  
+  digitalWrite(COL_SHIFT_PIN, LOW);
+  delayMicroseconds(COL_PULSE_WIDTH_USEC);
+  digitalWrite(COL_SHIFT_PIN, HIGH);
+
+  for (uint8_t col = 0; col < COL_DATA_WIDTH; col++) {
+    if (digitalRead(COL_DATA_PIN) == HIGH) {
+      row_read |= 1 << col;
+    }
+
+    // Pulse the Clock (rising edge shifts the next bit)
+    digitalWrite(COL_CLK_PIN, HIGH);
+    delayMicroseconds(COL_PULSE_WIDTH_USEC);
+    digitalWrite(COL_CLK_PIN, LOW);
+    delayMicroseconds(COL_PULSE_WIDTH_USEC);
+  }
+
+  return row_read;
 }
 
-static void init_cols(void) {
+static void unselect_rows(void)
+{
+  for (uint8_t row = 0; row < MATRIX_ROWS; row++)
+  {
+    digitalWrite(row_pins[row], LOW);
+  }
 }
 
-static matrix_row_t read_cols(void) {
-}
-
-static void unselect_rows(void) {
-}
-
-static void select_row(uint8_t row) {
+static void select_row(uint8_t row)
+{
+  digitalWrite(row_pins[row], HIGH);
 }
