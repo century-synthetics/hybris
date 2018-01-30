@@ -6,6 +6,7 @@
 #include <avr/pgmspace.h>
 #include "keycode.h"
 #include "keymap.h"
+#include "config.h"
 
 extern const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t fn_actions[];

@@ -61,33 +61,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 /* translates keycode to action */
 static action_t keycode_to_action(uint8_t keycode)
 {
-    switch (keycode) {
-        case KC_A ... KC_EXSEL:
-        case KC_LCTRL ... KC_RGUI:
-            return (action_t)ACTION_KEY(keycode);
-            break;
-        case KC_SYSTEM_POWER ... KC_SYSTEM_WAKE:
-            return (action_t)ACTION_USAGE_SYSTEM(KEYCODE2SYSTEM(keycode));
-            break;
-        case KC_AUDIO_MUTE ... KC_WWW_FAVORITES:
-            return (action_t)ACTION_USAGE_CONSUMER(KEYCODE2CONSUMER(keycode));
-            break;
-        case KC_MS_UP ... KC_MS_ACCEL2:
-            return (action_t)ACTION_MOUSEKEY(keycode);
-            break;
-        case KC_TRNS:
-            return (action_t)ACTION_TRANSPARENT;
-            break;
-        case KC_BOOTLOADER:
-            clear_keyboard();
-            wait_ms(50);
-            bootloader_jump(); // not return
-            break;
-        default:
-            return (action_t)ACTION_NO;
-            break;
-    }
-    return (action_t)ACTION_NO;
+
 }
 
 
@@ -150,27 +124,18 @@ action_t keymap_fn_to_action(uint8_t keycode)
 #else
 
 /* user keymaps should be defined somewhere */
-extern const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
 extern const action_t fn_actions[];
 
 __attribute__ ((weak))
 uint8_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
-#if defined(__AVR__)
-    return pgm_read_byte(&keymaps[(layer)][(key.row)][(key.col)]);
-#else
-    return keymaps[(layer)][(key.row)][(key.col)];
-#endif
+
 }
 
 __attribute__ ((weak))
 action_t keymap_fn_to_action(uint8_t keycode)
 {
-#if defined(__AVR__)
-    return (action_t)pgm_read_word(&fn_actions[FN_INDEX(keycode)]);
-#else
-    return fn_actions[FN_INDEX(keycode)];
-#endif
+
 }
 
 #endif

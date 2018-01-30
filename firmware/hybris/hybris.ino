@@ -1,14 +1,17 @@
-#include "config.h"
 #include <Arduino.h>
-#include "matrix.h"
+#include <bluefruit.h>
+#include "config.h"
 #include "bluetooth.h"
+#include "matrix.h"
+
+uint8_t row_pins[MATRIX_ROWS] = ROW_PINS;
 
 void setup(void) {
   Serial.begin(115200);
 
   init_bluetooth();
 
-  for (uint8_t row = 0; row < ROWS; row++) {
+  for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
     pinMode(row_pins[row], OUTPUT);
     digitalWrite(row_pins[row], LOW);
   }
@@ -27,5 +30,5 @@ void setup(void) {
 
 void loop() {
 
-  wait_for_event();
+  waitForEvent();
 }

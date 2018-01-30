@@ -2,6 +2,7 @@
 #include <bluefruit.h>
 
 #include "config.h"
+#include "bluetooth.h"
 #include "keycode.h"
 
 BLEHidAdafruit blehid;

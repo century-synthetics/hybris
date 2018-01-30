@@ -1,6 +1,8 @@
 #include <stdint.h>
 #include <stdbool.h>
+#include <Arduino.h>
 #include "matrix.h"
+#include "config.h"
 
 static uint8_t debouncing = DEBOUNCE;
 
@@ -50,9 +52,6 @@ uint8_t matrix_scan(void)
         matrix_row_t rows = read_cols();
         if (matrix_reversed_debouncing[i] != rows) {
             matrix_reversed_debouncing[i] = rows;
-            if (debouncing) {
-                debug("bounce!: "); debug_hex(debouncing); debug("\n");
-            }
             debouncing = DEBOUNCE;
         }
         unselect_rows();
