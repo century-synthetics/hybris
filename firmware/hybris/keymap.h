@@ -20,25 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "config.h"
 
 /* macros */
 typedef uint8_t macro_t;
 #define MACRO_NONE      0
 #define MACRO(...)      ({ static const macro_t __m[] PROGMEM = { __VA_ARGS__ }; &__m[0]; })
 #define MACRO_GET(p)    pgm_read_byte(p)
-
-/* key matrix position */
-typedef struct {
-    uint8_t col;
-    uint8_t row;
-} keypos_t;
-
-/* key event */
-typedef struct {
-    keypos_t key;
-    bool     pressed;
-    uint16_t time;
-} keyevent_t;
 
 /* Key event container for recording */
 typedef struct {

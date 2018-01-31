@@ -55,7 +55,7 @@ uint8_t matrix_scan(void)
 {
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         select_row(i);
-        delayMicroseconds(5);  // without this wait read unstable value.
+        delayMicroseconds(5);
         matrix_row_t rows = read_cols();
         if (matrix_debouncing[i] != rows) {
             matrix_debouncing[i] = rows;
