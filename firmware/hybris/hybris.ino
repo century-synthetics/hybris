@@ -3,8 +3,8 @@
 #include "config.h"
 #include "bluetooth.h"
 #include "matrix.h"
-
-
+#include "hook.h"
+#include "action.h"
 
 void setup(void) {
   Serial.begin(115200);
@@ -30,24 +30,17 @@ void loop() {
         if (matrix_change) {
             matrix_row_t col_mask = 1;
             for (uint8_t c = 0; c < MATRIX_COLS; c++, col_mask <<= 1) {
-                if (matrix_change & col_mask) {
-                    Serial.print(r);
-                    Serial.print(" ");
-                    Serial.print(c);
-                    Serial.print(" ");
-                    Serial.print(matrix_row & col_mask);
-                    Serial.print("\r\n");
-                    
+                if (matrix_change & col_mask) {       
                     keyevent_t e = (keyevent_t){
                         .key = (keypos_t){ .row = r, .col = c },
                         .pressed = (matrix_row & col_mask),
                         .time = (millis() | 1) 
                     };/*
                     action_exec(e);
+                    */
                     hook_matrix_change(e);
                     // record a processed key
                     matrix_prev[r] ^= col_mask;
-                    */
                 }
             }
         }

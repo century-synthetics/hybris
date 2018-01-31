@@ -15,36 +15,40 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef MATRIX_H
-#define MATRIX_H
+#ifndef HOST_H
+#define HOST_H
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "report.h"
+#include "config.h"
 
-typedef  uint32_t   matrix_row_t;
-
-#define MATRIX_IS_ON(row, col)  (matrix_get_row(row) && (1<<col))
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/* number of matrix rows */
-uint8_t matrix_rows(void);
-/* number of matrix columns */
-uint8_t matrix_cols(void);
-/* should be called at early stage of startup before matrix_init.(optional) */
-void matrix_setup(void);
-/* intialize matrix for scaning. */
-void matrix_init(void);
-/* scan all key states on matrix */
-uint8_t matrix_scan(void);
-/* matrix state on row */
-matrix_row_t matrix_get_row(uint8_t row);
+#ifdef NKRO_ENABLE
+extern bool keyboard_nkro;
+#endif
 
-/* power control */
-void matrix_power_up(void);
-void matrix_power_down(void);
+extern uint8_t keyboard_idle;
+extern uint8_t keyboard_protocol;
+
+
+/* host driver */
+void host_set_driver(host_driver_t *driver);
+host_driver_t *host_get_driver(void);
+
+/* host driver interface */
+uint8_t host_keyboard_leds(void);
+void host_keyboard_send(report_keyboard_t *report);
+void host_mouse_send(report_mouse_t *report);
+void host_system_send(uint16_t data);
+void host_consumer_send(uint16_t data);
+
+uint16_t host_last_sysytem_report(void);
+uint16_t host_last_consumer_report(void);
 
 #ifdef __cplusplus
 }

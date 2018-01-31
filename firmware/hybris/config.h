@@ -1,6 +1,10 @@
 #ifndef CONFIG_H
     #define CONFIG_H
 
+    #include <stdint.h>
+    #include <stdbool.h>
+    #include "report.h"
+    
     #define ADVERTISE_NAME    "Hybris"
     #define MANUFACTURER_NAME "Century Synthetics"
     #define MODEL_NAME        "Hybris Mechanical Keyboard"
@@ -39,6 +43,14 @@
         bool     pressed;
         uint16_t time;
     } keyevent_t;
+
+    typedef struct {
+        uint8_t (*keyboard_leds)(void);
+        void (*send_keyboard)(report_keyboard_t *);
+        void (*send_mouse)(report_mouse_t *);
+        void (*send_system)(uint16_t);
+        void (*send_consumer)(uint16_t);
+    } host_driver_t;
     
     /* equivalency test of keypos_t */
     #define KEYEQ(keya, keyb)       ((keya).row == (keyb).row && (keya).col == (keyb).col)
@@ -57,4 +69,11 @@
         .pressed = false,                                   \
         .time = (timer_read() | 1)                          \
     }
+
+    #define TIMER_DIFF(a, b, max)   ((a) >= (b) ?  (a) - (b) : (max) - (b) + (a))
+    #define TIMER_DIFF_8(a, b)      TIMER_DIFF(a, b, UINT8_MAX)
+    #define TIMER_DIFF_16(a, b)     TIMER_DIFF(a, b, UINT16_MAX)
+    #define TIMER_DIFF_32(a, b)     TIMER_DIFF(a, b, UINT32_MAX)
+    #define TIMER_DIFF_RAW(a, b)    TIMER_DIFF_8(a, b)
+
 #endif

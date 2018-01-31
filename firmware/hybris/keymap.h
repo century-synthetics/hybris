@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include "config.h"
+#include "report.h"
 
 /* macros */
 typedef uint8_t macro_t;

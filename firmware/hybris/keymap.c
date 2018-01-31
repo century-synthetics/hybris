@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "keymap.h"
 #include "keycode.h"
+#include "report.h"
 #include <avr/pgmspace.h>
 
 /* key matrix position */

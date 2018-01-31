@@ -83,12 +83,6 @@ bool matrix_is_modified(void)
     return true;
 }
 
-
-bool matrix_is_on(uint8_t row, uint8_t col)
-{
-}
-
-
 matrix_row_t matrix_get_row(uint8_t row) 
 {
     return matrix[row];

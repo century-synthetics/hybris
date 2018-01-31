@@ -15,36 +15,34 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef MATRIX_H
-#define MATRIX_H
+#ifndef UTIL_H
+#define UTIL_H
 
 #include <stdint.h>
-#include <stdbool.h>
 
-typedef  uint32_t   matrix_row_t;
+// convert to L string
+#define LSTR(s) XLSTR(s)
+#define XLSTR(s) L ## #s
+// convert to string
+#define STR(s) XSTR(s)
+#define XSTR(s) #s
 
-#define MATRIX_IS_ON(row, col)  (matrix_get_row(row) && (1<<col))
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/* number of matrix rows */
-uint8_t matrix_rows(void);
-/* number of matrix columns */
-uint8_t matrix_cols(void);
-/* should be called at early stage of startup before matrix_init.(optional) */
-void matrix_setup(void);
-/* intialize matrix for scaning. */
-void matrix_init(void);
-/* scan all key states on matrix */
-uint8_t matrix_scan(void);
-/* matrix state on row */
-matrix_row_t matrix_get_row(uint8_t row);
+uint8_t bitpop(uint8_t bits);
+uint8_t bitpop16(uint16_t bits);
+uint8_t bitpop32(uint32_t bits);
 
-/* power control */
-void matrix_power_up(void);
-void matrix_power_down(void);
+uint8_t biton(uint8_t bits);
+uint8_t biton16(uint16_t bits);
+uint8_t biton32(uint32_t bits);
+
+uint8_t  bitrev(uint8_t bits);
+uint16_t bitrev16(uint16_t bits);
+uint32_t bitrev32(uint32_t bits);
 
 #ifdef __cplusplus
 }
