@@ -1,7 +1,7 @@
 #include "keymap_common.h"
 #include "config.h"
 
-const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* layer 0 */
     KEYMAP(
          ESC,         F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F12, PSCR, SLCK, PAUS,                          F11, \

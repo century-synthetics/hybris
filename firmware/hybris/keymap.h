@@ -26,8 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* macros */
 typedef uint8_t macro_t;
 #define MACRO_NONE      0
-#define MACRO(...)      ({ static const macro_t __m[] PROGMEM = { __VA_ARGS__ }; &__m[0]; })
-#define MACRO_GET(p)    pgm_read_byte(p)
+#define MACRO(...)      ({ static const macro_t __m[] = { __VA_ARGS__ }; &__m[0]; })
+#define MACRO_GET(p)    (p
 
 /* Key event container for recording */
 typedef struct {
