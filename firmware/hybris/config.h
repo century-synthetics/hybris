@@ -75,5 +75,4 @@
     #define TIMER_DIFF_16(a, b)     TIMER_DIFF(a, b, UINT16_MAX)
     #define TIMER_DIFF_32(a, b)     TIMER_DIFF(a, b, UINT32_MAX)
     #define TIMER_DIFF_RAW(a, b)    TIMER_DIFF_8(a, b)
-
 #endif

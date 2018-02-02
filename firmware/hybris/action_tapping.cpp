@@ -133,12 +133,13 @@ bool process_tapping(keyrecord_t *keyp)
                 else if (is_tap_key(event.key) && event.pressed) {
                     if (tapping_key.tap.count > 1) {
                         // unregister key
+                        /*
                         process_action(&(keyrecord_t){
                                 .tap = tapping_key.tap,
                                 .event.key = tapping_key.event.key,
                                 .event.time = event.time,
                                 .event.pressed = false
-                        });
+                        });*/
                     }
                     tapping_key = *keyp;
                     waiting_buffer_scan_tap();
@@ -167,12 +168,13 @@ bool process_tapping(keyrecord_t *keyp)
                 else if (is_tap_key(event.key) && event.pressed) {
                     if (tapping_key.tap.count > 1) {
                         // unregister key
+                        /**
                         process_action(&(keyrecord_t){
                                 .tap = tapping_key.tap,
                                 .event.key = tapping_key.event.key,
                                 .event.time = event.time,
                                 .event.pressed = false
-                        });
+                        });*/
                     }
                     tapping_key = *keyp;
                     waiting_buffer_scan_tap();
