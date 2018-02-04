@@ -14,9 +14,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include "config.h"
 #include "host.h"
 #include "report.h"
-#include "debug.h"
 #include "action_util.h"
 #include "util.h" 
 
@@ -42,7 +42,7 @@ static int8_t cb_count = 0;
 
 // TODO: pointer variable is not needed
 //report_keyboard_t keyboard_report = {};
-//report_keyboard_t *keyboard_report = &(report_keyboard_t){};
+report_keyboard_t *keyboard_report = (report_keyboard_t*){};
 
 #ifndef NO_ACTION_ONESHOT
 static int8_t oneshot_mods = 0;

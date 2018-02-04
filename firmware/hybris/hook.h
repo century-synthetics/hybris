@@ -18,9 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef _HOOKS_H_
 #define _HOOKS_H_
 
-#include "config.h"
-#include <stdint.h>
-#include <stdbool.h>
+#include "keyboard.h"
+#include "led.h"
 
 /* -------------------------------------
  * Protocol hooks
@@ -44,7 +43,7 @@ void hook_usb_suspend_entry(void);
 void hook_usb_suspend_loop(void);
 
 /* Called once, on getting WAKE event from USB. */
-/* Default behaviour: disables sleep LED breathing and restores 
+/* Default behaviour: disables sleep LED breathing and restores
  * the "normal" indicator LED status by default. */
 void hook_usb_wakeup(void);
 
@@ -68,6 +67,10 @@ void hook_default_layer_change(uint32_t default_layer_state);
 /* Called on layer state change event. */
 /* Default behaviour: do nothing. */
 void hook_layer_change(uint32_t layer_state);
+
+/* Called on indicator LED update event (when reported from host). */
+/* Default behaviour: calls keyboard_set_leds. */
+void hook_keyboard_leds_change(uint8_t led_status);
 
 /* Called once, on checking the bootmagic combos. */
 /* Default behaviour: do nothing. */

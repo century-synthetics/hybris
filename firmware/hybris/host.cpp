@@ -14,13 +14,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
+#include <Arduino.h>
 #include <stdint.h>
 #include "keycode.h"
 #include "host.h"
 #include "util.h"
-#include "debug.h"
-
+#include "bluetooth.h"
 
 #ifdef NKRO_ENABLE
 bool keyboard_nkro = true;
@@ -49,16 +48,10 @@ uint8_t host_keyboard_leds(void)
 /* send report */
 void host_keyboard_send(report_keyboard_t *report)
 {
+    send_report_bluetooth(report);
+    
     if (!driver) return;
     (*driver->send_keyboard)(report);
-
-    if (debug_keyboard) {
-        dprint("keyboard: ");
-        for (uint8_t i = 0; i < KEYBOARD_REPORT_SIZE; i++) {
-            dprintf("%02X ", report->raw[i]);
-        }
-        dprint("\n");
-    }
 }
 
 void host_mouse_send(report_mouse_t *report)

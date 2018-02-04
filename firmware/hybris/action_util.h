@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern "C" {
 #endif
 
-extern report_keyboard_t *keyboard_report;
+//extern report_keyboard_t *keyboard_report;
 
 void send_keyboard_report(void);
 

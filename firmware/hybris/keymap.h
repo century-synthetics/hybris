@@ -20,66 +20,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "config.h"
-#include "report.h"
+#include "action.h"
 
-/* macros */
-typedef uint8_t macro_t;
-#define MACRO_NONE      0
-#define MACRO(...)      ({ static const macro_t __m[] = { __VA_ARGS__ }; &__m[0]; })
-#define MACRO_GET(p)    (p
 
-/* Key event container for recording */
-typedef struct {
-    keyevent_t  event;
-} keyrecord_t;
-
+#ifdef BOOTMAGIC_ENABLE
+/* NOTE: Not portable. Bit field order depends on implementation */
 typedef union {
-    uint16_t code;
-    struct action_kind {
-        uint16_t param  :12;
-        uint8_t  id     :4;
-    } kind;
-    struct action_key {
-        uint8_t  code   :8;
-        uint8_t  mods   :4;
-        uint8_t  kind   :4;
-    } key;
-    struct action_layer_bitop {
-        uint8_t  bits   :4;
-        uint8_t  xbit   :1;
-        uint8_t  part   :3;
-        uint8_t  on     :2;
-        uint8_t  op     :2;
-        uint8_t  kind   :4;
-    } layer_bitop;
-    struct action_layer_tap {
-        uint8_t  code   :8;
-        uint8_t  val    :5;
-        uint8_t  kind   :3;
-    } layer_tap;
-    struct action_usage {
-        uint16_t code   :10;
-        uint8_t  page   :2;
-        uint8_t  kind   :4;
-    } usage;
-    struct action_backlight {
-        uint8_t  level  :8;
-        uint8_t  opt    :4;
-        uint8_t  kind   :4;
-    } backlight;
-    struct action_command {
-        uint8_t  id     :8;
-        uint8_t  opt    :4;
-        uint8_t  kind   :4;
-    } command;
-    struct action_function {
-        uint8_t  id     :8;
-        uint8_t  opt    :4;
-        uint8_t  kind   :4;
-    } func;
-} action_t;
-
+    uint8_t raw;
+    struct {
+        bool swap_control_capslock:1;
+        bool capslock_to_control:1;
+        bool swap_lalt_lgui:1;
+        bool swap_ralt_rgui:1;
+        bool no_gui:1;
+        bool swap_grave_esc:1;
+        bool swap_backslash_backspace:1;
+        bool nkro:1;
+    };
+} keymap_config_t;
+#endif
 
 
 /* translates key to keycode */
@@ -87,5 +46,25 @@ uint8_t keymap_key_to_keycode(uint8_t layer, keypos_t key);
 
 /* translates Fn keycode to action */
 action_t keymap_fn_to_action(uint8_t keycode);
+
+
+
+#ifdef USE_LEGACY_KEYMAP
+/*
+ * Legacy keymap
+ *      Consider using new keymap API above instead.
+ */
+/* keycode of key */
+__attribute__ ((deprecated))
+uint8_t keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t col);
+
+/* layer to move during press Fn key */
+__attribute__ ((deprecated))
+uint8_t keymap_fn_layer(uint8_t fn_bits);
+
+/* keycode to send when release Fn key without using */
+__attribute__ ((deprecated))
+uint8_t keymap_fn_keycode(uint8_t fn_bits);
+#endif
 
 #endif

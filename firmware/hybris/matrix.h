@@ -21,9 +21,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 
+
+#if (MATRIX_COLS <= 8)
+typedef  uint8_t    matrix_row_t;
+#elif (MATRIX_COLS <= 16)
+typedef  uint16_t   matrix_row_t;
+#elif (MATRIX_COLS <= 32)
 typedef  uint32_t   matrix_row_t;
+#else
+#error "MATRIX_COLS: invalid value"
+#endif
+
+#if (MATRIX_ROWS > 255)
+#error "MATRIX_ROWS must not exceed 255"
+#endif
 
 #define MATRIX_IS_ON(row, col)  (matrix_get_row(row) && (1<<col))
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -39,8 +53,20 @@ void matrix_setup(void);
 void matrix_init(void);
 /* scan all key states on matrix */
 uint8_t matrix_scan(void);
+/* whether modified from previous scan. used after matrix_scan. */
+bool matrix_is_modified(void) __attribute__ ((deprecated));
+/* whether a swtich is on */
+bool matrix_is_on(uint8_t row, uint8_t col);
 /* matrix state on row */
 matrix_row_t matrix_get_row(uint8_t row);
+/* print matrix for debug */
+void matrix_print(void);
+/* clear matrix */
+void matrix_clear(void);
+
+#ifdef MATRIX_HAS_GHOST
+bool matrix_has_ghost_in_row(uint8_t row);
+#endif
 
 /* power control */
 void matrix_power_up(void);

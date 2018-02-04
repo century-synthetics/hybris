@@ -73,7 +73,7 @@ uint8_t matrix_scan(void)
             }
         }
     }
-    
+
     return 1;
 }
 
@@ -83,7 +83,7 @@ bool matrix_is_modified(void)
     return true;
 }
 
-matrix_row_t matrix_get_row(uint8_t row) 
+matrix_row_t matrix_get_row(uint8_t row)
 {
     return matrix[row];
 }
@@ -96,8 +96,8 @@ static void init_cols(void)
 
 static matrix_row_t read_cols(void)
 {
-  matrix_row_t row_read = 0; 
-  
+  matrix_row_t row_read = 0;
+
   digitalWrite(COL_SHIFT_PIN, LOW);
   delayMicroseconds(COL_PULSE_WIDTH_USEC);
   digitalWrite(COL_SHIFT_PIN, HIGH);
@@ -128,4 +128,8 @@ static void unselect_rows(void)
 static void select_row(uint8_t row)
 {
   digitalWrite(row_pins[row], HIGH);
+}
+
+void matrix_print(void)
+{    
 }

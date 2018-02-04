@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Jun Wako <wakojun@gmail.com>
+Copyright 2011 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,27 +14,22 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "hook.h"
-#include "config.h"
 
-/* -------------------------------------------------
- * Definitions of default hooks
- * ------------------------------------------------- */
+#ifndef COMMAND_H
+#define COMMAND
 
-__attribute__((weak))
-void hook_keyboard_loop(void) {}
+/* TODO: Refactoring */
+typedef enum { ONESHOT, CONSOLE, MOUSEKEY } command_state_t;
+extern command_state_t command_state;
 
-__attribute__((weak))
-void hook_matrix_change(keyevent_t event) {
-    (void)event;
-}
+/* This allows to extend commands. Return false when command is not processed. */
+bool command_extra(uint8_t code);
+bool command_console_extra(uint8_t code);
 
-__attribute__((weak))
-void hook_default_layer_change(uint32_t default_layer_state) {
-    (void)default_layer_state;
-}
+#ifdef COMMAND_ENABLE
+bool command_proc(uint8_t code);
+#else
+#define command_proc(code)      false
+#endif
 
-__attribute__((weak))
-void hook_layer_change(uint32_t layer_state) {
-    (void)layer_state;
-}
+#endif

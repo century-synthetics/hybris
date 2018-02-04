@@ -29,6 +29,10 @@ void send_report_keyboard() {
   );
 }
 
+void send_report_bluetooth(report_keyboard_t *report) {
+  blehid.keyboardReport(report->mods, report->raw[0], report->raw[1], report->raw[2], report->raw[3], report->raw[4], report->raw[5]);
+}
+
 void register_keydown(uint16_t keycode) {
   if (IN_KEYBOARD_RANGE(keycode)) {
     add_mods((uint8_t)(keycode >> 8));

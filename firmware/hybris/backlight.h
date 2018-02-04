@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Jun Wako <wakojun@gmail.com>
+Copyright 2013 Mathias Andersson <wraul@dbox.se>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,27 +14,27 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "hook.h"
-#include "config.h"
 
-/* -------------------------------------------------
- * Definitions of default hooks
- * ------------------------------------------------- */
+#ifndef BACKLIGHT_H
+#define BACKLIGHT_H
 
-__attribute__((weak))
-void hook_keyboard_loop(void) {}
+#include <stdint.h>
+#include <stdbool.h>
 
-__attribute__((weak))
-void hook_matrix_change(keyevent_t event) {
-    (void)event;
-}
+typedef union {
+    uint8_t raw;
+    struct {
+        bool    enable :1;
+        uint8_t level  :7;
+    };
+} backlight_config_t;
 
-__attribute__((weak))
-void hook_default_layer_change(uint32_t default_layer_state) {
-    (void)default_layer_state;
-}
+void backlight_init(void);
+void backlight_increase(void);
+void backlight_decrease(void);
+void backlight_toggle(void);
+void backlight_step(void);
+void backlight_set(uint8_t level);
+void backlight_level(uint8_t level);
 
-__attribute__((weak))
-void hook_layer_change(uint32_t layer_state) {
-    (void)layer_state;
-}
+#endif

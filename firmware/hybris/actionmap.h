@@ -31,8 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AC_g(kc)                ACTION_MODS_KEY(MOD_LSFT, KC_##kc)
 
 /* Normal key */
-#define AC_NO			ACTION_KEY(KC_NO)
-#define AC_TRANSPARENT          ACTION_KEY(KC_TRANSPARENT)
+#define AC_NO			    ACTION_KEY(KC_NO)
+#define AC_TRANSPARENT      ACTION_KEY(KC_TRANSPARENT)
 #define AC_ROLL_OVER		ACTION_KEY(KC_ROLL_OVER)
 #define AC_POST_FAIL		ACTION_KEY(KC_POST_FAIL)
 #define AC_UNDEFINED		ACTION_KEY(KC_UNDEFINED)
