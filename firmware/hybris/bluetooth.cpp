@@ -24,6 +24,7 @@ void del_mods(uint8_t mods) {
 }
 
 void send_report_keyboard() {
+  
   bool err = blehid.keyboardReport(
     active_mods, report[0], report[1], report[2], report[3], report[4], report[5]
   );

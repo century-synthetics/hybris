@@ -109,7 +109,7 @@ const action_t actionmaps[][MATRIX_ROWS][MATRIX_COLS] = {
 __attribute__ ((weak))
 action_t action_for_key(uint8_t layer, keypos_t key)
 {
-    return (action_t) actionmaps[(layer)][(key.row)][(key.col)];
+    return (action_t) actionmaps[(layer)][(key.row & 0x7)][(key.col)];
 }
 
 /* Macro */

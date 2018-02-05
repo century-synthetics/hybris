@@ -21,10 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <Arduino.h>
 #include <stdbool.h>
 
-#define print(t) Serial.write(t)
-#define println(t) (Serial.write(t);Serial.write("\r\n");)
-
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -61,8 +57,8 @@ extern debug_config_t debug_config;
  */
 #ifndef NO_DEBUG
 
-#define dprint(s)                   do { if (debug_enable) print(s); } while (0)
-#define dprintln(s)                 do { if (debug_enable) println(s); } while (0)
+#define dprint(s)                   do { if (debug_enable); } while (0)
+#define dprintln(s)                 do { if (debug_enable); } while (0)
 #define dprintf(fmt, ...)           do { if (debug_enable); } while (0)
 #define dmsg(s)                     dprintf("%s at %s: %S\n", __FILE__, __LINE__, PSTR(s))
 

@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host.h"
 #include "report.h"
 #include "action_util.h"
-#include "util.h" 
+#include "util.h"
 
 static inline void add_key_byte(uint8_t code);
 static inline void del_key_byte(uint8_t code);
@@ -40,9 +40,8 @@ static int8_t cb_tail = 0;
 static int8_t cb_count = 0;
 #endif
 
-// TODO: pointer variable is not needed
-//report_keyboard_t keyboard_report = {};
-report_keyboard_t *keyboard_report = (report_keyboard_t*){};
+report_keyboard_t kr = {};
+report_keyboard_t *keyboard_report = &kr;
 
 #ifndef NO_ACTION_ONESHOT
 static int8_t oneshot_mods = 0;
@@ -59,7 +58,7 @@ void send_keyboard_report(void) {
     if (oneshot_mods) {
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
         if (TIMER_DIFF_16(timer_read(), oneshot_time) >= ONESHOT_TIMEOUT) {
-            dprintf("Oneshot: timeout\n");
+            dprint("Oneshot: timeout\n");
             clear_oneshot_mods();
         }
 #endif
@@ -292,7 +291,8 @@ static inline void add_key_bit(uint8_t code)
     if ((code>>3) < KEYBOARD_REPORT_BITS) {
         keyboard_report->nkro.bits[code>>3] |= 1<<(code&7);
     } else {
-        dprintf("add_key_bit: can't add: %02X\n", code);
+        dprint("add_key_bit: can't add: ")
+        dprint(code);
     }
 }
 
@@ -301,7 +301,8 @@ static inline void del_key_bit(uint8_t code)
     if ((code>>3) < KEYBOARD_REPORT_BITS) {
         keyboard_report->nkro.bits[code>>3] &= ~(1<<(code&7));
     } else {
-        dprintf("del_key_bit: can't del: %02X\n", code);
+        dprint("del_key_bit: can't del: ");
+        dprint(code);
     }
 }
 #endif

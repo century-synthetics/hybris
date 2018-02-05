@@ -32,7 +32,7 @@ static void default_layer_state_set(uint32_t state)
 
 void default_layer_debug(void)
 {
-    dprintf("%08lX(%u)", default_layer_state, biton32(default_layer_state));
+    //dprintf("%08lX(%u)", default_layer_state, biton32(default_layer_state));
 }
 
 void default_layer_set(uint32_t state)
@@ -114,7 +114,7 @@ void layer_xor(uint32_t state)
 
 void layer_debug(void)
 {
-    dprintf("%08lX(%u)", layer_state, biton32(layer_state));
+    //dprintf("%08lX(%u)", layer_state, biton32(layer_state));
 }
 #endif
 

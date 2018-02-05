@@ -134,6 +134,13 @@ typedef union {
     } nkro;
 #endif
 } __attribute__ ((packed)) report_keyboard_t;
+/*
+typedef struct {
+    uint8_t mods;
+    uint8_t reserved;
+    uint8_t keys[REPORT_KEYS];
+} __attribute__ ((packed)) report_keyboard_t;
+*/
 
 typedef struct {
     uint8_t buttons;

@@ -61,11 +61,15 @@ void process_action(keyrecord_t *record)
 #ifndef NO_ACTION_TAPPING
     uint8_t tap_count = record->tap.count;
 #endif
-
     if (IS_NOEVENT(event)) { return; }
 
+        Serial.print(event.key.row);
+        Serial.print(" ");
+        Serial.print(event.key.col);
+        Serial.print("\r\n");
+
     action_t action = layer_switch_get_action(event);
-    dprint("ACTION: "); debug_action(action);
+    Serial.print("ACTION: "); debug_action(action);
 #ifndef NO_ACTION_LAYER
     dprint(" layer_state: "); layer_debug();
     dprint(" default_layer_state: "); default_layer_debug();
@@ -363,21 +367,21 @@ void register_code(uint8_t code)
 
 #ifdef LOCKING_SUPPORT_ENABLE
     else if (KC_LOCKING_CAPS == code) {
-#ifdef LOCKING_RESYNC_ENABLE
-        // Resync: ignore if caps lock already is on
-        if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) return;
-#endif
-        add_key(KC_CAPSLOCK);
-        send_keyboard_report();
-        wait_ms(100);
-        del_key(KC_CAPSLOCK);
-        send_keyboard_report();
-    }
+    #ifdef LOCKING_RESYNC_ENABLE
+            // Resync: ignore if caps lock already is on
+            if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) return;
+    #endif
+            add_key(KC_CAPSLOCK);
+            send_keyboard_report();
+            wait_ms(100);
+            del_key(KC_CAPSLOCK);
+            send_keyboard_report();
+        }
 
-    else if (KC_LOCKING_NUM == code) {
-#ifdef LOCKING_RESYNC_ENABLE
-        if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) return;
-#endif
+        else if (KC_LOCKING_NUM == code) {
+    #ifdef LOCKING_RESYNC_ENABLE
+            if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) return;
+    #endif
         add_key(KC_NUMLOCK);
         send_keyboard_report();
         wait_ms(100);
@@ -386,9 +390,9 @@ void register_code(uint8_t code)
     }
 
     else if (KC_LOCKING_SCROLL == code) {
-#ifdef LOCKING_RESYNC_ENABLE
-        if (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) return;
-#endif
+    #ifdef LOCKING_RESYNC_ENABLE
+            if (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) return;
+    #endif
         add_key(KC_SCROLLLOCK);
         send_keyboard_report();
         wait_ms(100);
@@ -399,11 +403,13 @@ void register_code(uint8_t code)
 
     else if IS_KEY(code) {
         {
+            Serial.print("It's a Key!\r\n");
             add_key(code);
             send_keyboard_report();
         }
     }
     else if IS_MOD(code) {
+        Serial.print("It's a Modifier!\r\n");
         add_mods(MOD_BIT(code));
         send_keyboard_report();
     }
@@ -557,33 +563,41 @@ bool is_tap_key(keyevent_t event)
  */
 void debug_event(keyevent_t event)
 {
-    dprintf("%04X%c(%u)", (event.key.row<<8 | event.key.col), (event.pressed ? 'd' : 'u'), event.time);
+    dprint(event.key.row<<8 | event.key.col);
+    dprint(event.pressed ? 'd' : 'u');
+    dprint(event.time);
 }
 
 void debug_record(keyrecord_t record)
 {
     debug_event(record.event);
 #ifndef NO_ACTION_TAPPING
-    dprintf(":%u%c", record.tap.count, (record.tap.interrupted ? '-' : ' '));
+    //dprintf(":%u%c", record.tap.count, (record.tap.interrupted ? '-' : ' '));
 #endif
 }
 
 void debug_action(action_t action)
 {
     switch (action.kind.id) {
-        case ACT_LMODS:             dprint("ACT_LMODS");             break;
-        case ACT_RMODS:             dprint("ACT_RMODS");             break;
-        case ACT_LMODS_TAP:         dprint("ACT_LMODS_TAP");         break;
-        case ACT_RMODS_TAP:         dprint("ACT_RMODS_TAP");         break;
-        case ACT_USAGE:             dprint("ACT_USAGE");             break;
-        case ACT_MOUSEKEY:          dprint("ACT_MOUSEKEY");          break;
-        case ACT_LAYER:             dprint("ACT_LAYER");             break;
-        case ACT_LAYER_TAP:         dprint("ACT_LAYER_TAP");         break;
-        case ACT_LAYER_TAP_EXT:     dprint("ACT_LAYER_TAP_EXT");     break;
-        case ACT_MACRO:             dprint("ACT_MACRO");             break;
-        case ACT_COMMAND:           dprint("ACT_COMMAND");           break;
-        case ACT_FUNCTION:          dprint("ACT_FUNCTION");          break;
-        default:                    dprint("UNKNOWN");               break;
+        case ACT_LMODS:             Serial.print("ACT_LMODS");             break;
+        case ACT_RMODS:             Serial.print("ACT_RMODS");             break;
+        case ACT_LMODS_TAP:         Serial.print("ACT_LMODS_TAP");         break;
+        case ACT_RMODS_TAP:         Serial.print("ACT_RMODS_TAP");         break;
+        case ACT_USAGE:             Serial.print("ACT_USAGE");             break;
+        case ACT_MOUSEKEY:          Serial.print("ACT_MOUSEKEY");          break;
+        case ACT_LAYER:             Serial.print("ACT_LAYER");             break;
+        case ACT_LAYER_TAP:         Serial.print("ACT_LAYER_TAP");         break;
+        case ACT_LAYER_TAP_EXT:     Serial.print("ACT_LAYER_TAP_EXT");     break;
+        case ACT_MACRO:             Serial.print("ACT_MACRO");             break;
+        case ACT_COMMAND:           Serial.print("ACT_COMMAND");           break;
+        case ACT_FUNCTION:          Serial.print("ACT_FUNCTION");          break;
+        default:                    Serial.print("UNKNOWN");               break;
     }
-    dprintf("[%X:%02X]", action.kind.param>>8, action.kind.param&0xff);
+    Serial.print(action.kind.param>>8);
+    Serial.print(action.kind.param&0xff);
+    Serial.print(" ");
+    Serial.print(action.key.mods);
+    Serial.print(" ");
+    Serial.print(action.key.code);
+    Serial.print("\r\n");
 }

@@ -69,7 +69,7 @@ void keyboard_setup(void)
 
 void keyboard_init(void)
 {
-    //timer_init();
+    timer_init();
     matrix_init();
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_init();
@@ -166,7 +166,7 @@ void keyboard_task(void)
     // update LED
     if (led_status != host_keyboard_leds()) {
         led_status = host_keyboard_leds();
-        if (debug_keyboard) dprintf("LED: %02X\n", led_status);
+        //if (debug_keyboard) dprintf("LED: %02X\n", led_status);
         //hook_keyboard_leds_change(led_status);
     }
 }
