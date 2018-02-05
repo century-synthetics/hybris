@@ -24,14 +24,14 @@ void del_mods(uint8_t mods) {
 }
 
 void send_report_keyboard() {
-  
+
   bool err = blehid.keyboardReport(
     active_mods, report[0], report[1], report[2], report[3], report[4], report[5]
   );
 }
 
 void send_report_bluetooth(report_keyboard_t *report) {
-  blehid.keyboardReport(report->mods, report->raw[0], report->raw[1], report->raw[2], report->raw[3], report->raw[4], report->raw[5]);
+  blehid.keyboardReport(report->mods, report->keys[0], report->keys[1], report->keys[2], report->keys[3], report->keys[4], report->keys[5]);
 }
 
 void register_keydown(uint16_t keycode) {
