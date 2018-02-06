@@ -1,9 +1,9 @@
 # Firmware Information
 
 This is a port of TMK specifically for the Adafruit BlueFruit NRF52 feather boards. The matrix implementation
-uses 3 74HC165 shift registers for a total of 24 columns. Additionally, there's a roary encoder subroutine
-to handle some basic media controls. The firmware does not overwrite the feather's base bootloader, so USB
-is used only for programming and charging the battery. THe main protocol is Bluetooth LE.
+uses 3 x 74HC165 shift registers for a total of 24 columns. Additionally, there's a rotary encoder subroutine
+to handle some basic media controls. The firmware does not overwrite the Feather's base bootloader, so USB
+is used only for programming and charging the battery. The main protocol is Bluetooth LE.
 
 ## Installation
 * Download and install the Arduino IDE (At least v1.8.x)
