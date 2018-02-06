@@ -46,7 +46,7 @@ const action_t actionmaps[][MATRIX_ROWS][MATRIX_COLS] = {
           TAB,    Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, LBRC, BSLS,  DEL,  END, PGDN,   P7,   P8,   P9, PPLS, RBRC, \
          CAPS,    A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, QUOT,  ENT,                     P4,   P5,   P6,             \
          LSFT,          Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, RSFT,         UP,         P1,   P2,   P3, PENT,       \
-         LCTL, LGUI, LALT,                    SPC,             RALT, LGUI, MENU, RCTL, LEFT, DOWN, RGHT,   P0,        DEL              ),
+         LCTL, LGUI, LALT,                    SPC,             RALT, LGUI, MENU, RCTL, LEFT, DOWN, RGHT,   P0,        KP_DOT           ),
      /* layer 1 */
      KEYMAP(
          TRNS,       TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,                         TRNS, \

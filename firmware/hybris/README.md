@@ -12,7 +12,7 @@ is used only for programming and charging the battery. THe main protocol is Blue
 * Add https://www.adafruit.com/package_adafruit_index.json as an 'Additional Board Manager URL'
 * Restart the Arduino IDE
 * Open the Boards Manager from the Tools -> Board menu and install 'Adafruit nRF52 by Adafruit'
-* Once the BSP is installed, select 'Adafruit Bluefruit nRF52 Feather' from the Tools -> Board menu, which will 
+* Once the BSP is installed, select 'Adafruit Bluefruit nRF52 Feather' from the Tools -> Board menu, which will
 update your system config to use the right compiler and settings for the nRF52.
 * Choose your bootloader in Tools -> Bootloader (Mine is 0.5.0)
 * Choose the programmer AVRISP II
@@ -21,12 +21,12 @@ update your system config to use the right compiler and settings for the nRF52.
 ## Configuration
 You can generate a configuration here: http://kb.sized.io/
 Download the raw source files when you're done.
-At the time of this writing, the output from the site needs some tweaks to function properly with the 
+At the time of this writing, the output from the site needs some tweaks to function properly with the
 latest version of TMK.
 
 There's two files you're interested in the keyboard(s) directory.
 
-One that looks like this 
+One that looks like this
 ```
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* layer 0 */
@@ -53,7 +53,7 @@ const action_t actionmaps[][MATRIX_ROWS][MATRIX_COLS] = {
          LCTL, LGUI, LALT,                    SPC,             RALT, LGUI, MENU, RCTL, LEFT, DOWN, RGHT,   P0,        DEL              ),
 ```
 
-And another file that looks like this 
+And another file that looks like this
 
 ```
 #define KEYMAP( \
@@ -94,22 +94,22 @@ which you will convert (not the AC_ prefix) and add to actionmap.cpp
 ```
 
 ## Electrical Config
-* Note: If you're using the shift registers, the diodes face row to column. Matrix ghosting should be enabled for this configuration. 
+* Note: If you're using the shift registers, the diodes face row to column. Matrix ghosting should be enabled for this configuration.
 
 Pinout:
 ```
-A0 - Row 1
-A1 - Row 2
-A2 - Row 3
-A3 - Row 4
-A4 - Row 5
-A5 - Row 6
-16 - Encoder SW (active low)
-15 - Encoder OUT B
-7  - Encoder OUT A
-11 - Wake sense (active high)
-31 - BAT ADC (N/C)
-30 - Shift Register CLK
-27 - Shift Register SH/LD
-SCL- Shift Register Data IN
+A0   - Row 1
+A1   - Row 2
+A2   - Row 3
+A3   - Row 4
+A4   - Row 5
+A5   - Row 6
+16   - Encoder SW (active low)
+15   - Encoder OUT B
+7    - Encoder OUT A
+11   - Wake sense
+31   - BAT ADC (N/C)
+SCK  - Shift Register CLK
+30   - Shift Register LATCH (active low)
+MOSI - Shift Register Data IN
 ```
