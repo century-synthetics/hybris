@@ -10,6 +10,7 @@
     #define MODEL_NAME        "Hybris Mechanical Keyboard"
 
     #define NO_ACTION_TAPPING true
+    #define MATRIX_HAS_GHOST true
 
     /* key matrix size */
     #define MATRIX_ROWS 6
@@ -27,7 +28,7 @@
 
     #define CAPS_LED 25
 
-    #define DEBOUNCE 10
+    #define DEBOUNCE 5
 
     #define _delay_us(us) delayMicroseconds(us)
     #define _delay_ms(ms) delay(ms)

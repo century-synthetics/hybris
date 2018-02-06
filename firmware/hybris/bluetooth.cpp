@@ -9,59 +9,16 @@ BLEHidAdafruit blehid;
 BLEBas blebas;
 BLEDis bledis;
 
-#define REPORT_KEYS 6
-
-uint8_t report[REPORT_KEYS] = { 0 };
-uint8_t active_mods = 0;
-char payload[43] = "";
-
-void add_mods(uint8_t mods) {
-  active_mods |= mods;
-}
-
-void del_mods(uint8_t mods) {
-  active_mods &= ~mods;
-}
-
-void send_report_keyboard() {
-
-  bool err = blehid.keyboardReport(
-    active_mods, report[0], report[1], report[2], report[3], report[4], report[5]
-  );
-}
-
 void send_report_bluetooth(report_keyboard_t *report) {
   blehid.keyboardReport(report->mods, report->keys[0], report->keys[1], report->keys[2], report->keys[3], report->keys[4], report->keys[5]);
 }
 
-void register_keydown(uint16_t keycode) {
-  if (IN_KEYBOARD_RANGE(keycode)) {
-    add_mods((uint8_t)(keycode >> 8));
-
-    for (uint8_t i = 0; i < REPORT_KEYS; i++) {
-      if (report[i] == (uint8_t)(keycode & 0xFF)) {
-        break;
-      }
-      if (report[i] == 0) {
-        report[i] = (uint8_t)(keycode & 0xFF);
-        break;
-      }
-    }
-    send_report_keyboard();
-  }
+void update_battery(uint8_t bat_percentage) {
+  blebas.write(bat_percentage);
 }
 
-void register_keyup(uint16_t keycode) {
-  if (IN_KEYBOARD_RANGE(keycode)) {
-    del_mods((uint8_t)(keycode >> 8));
-
-    for (uint8_t i = 0; i < REPORT_KEYS; i++) {
-      if (report[i] == (uint8_t)(keycode & 0xFF)) {
-        report[i] = 0;
-      }
-    }
-    send_report_keyboard();
-  }
+bool is_bluetooth_connected() {
+  return Bluefruit.connected();
 }
 
 void init_bluetooth() {
@@ -104,12 +61,4 @@ void start_advertising() {
   Bluefruit.ScanResponse.addName();
 
   Bluefruit.Advertising.start(0);                // 0 = Don't stop advertising after n seconds
-}
-
-void update_battery(uint8_t bat_percentage) {
-  blebas.write(bat_percentage);
-}
-
-bool is_bluetooth_connected() {
-  return Bluefruit.connected();
 }

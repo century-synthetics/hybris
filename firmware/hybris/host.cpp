@@ -53,10 +53,8 @@ void host_keyboard_send(report_keyboard_t *report)
     Serial.print(" ");
     Serial.print(report->keys[0]);
     Serial.print("\r\n");
-    send_report_bluetooth(report);
 
-    if (!driver) return;
-    (*driver->send_keyboard)(report);
+    send_report_bluetooth(report);
 }
 
 void host_mouse_send(report_mouse_t *report)
@@ -80,7 +78,7 @@ void host_consumer_send(uint16_t report)
 
 }
 
-uint16_t host_last_sysytem_report(void)
+uint16_t host_last_system_report(void)
 {
     return last_system_report;
 }
