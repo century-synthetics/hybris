@@ -48,11 +48,11 @@ uint8_t host_keyboard_leds(void)
 /* send report */
 void host_keyboard_send(report_keyboard_t *report)
 {
-    Serial.print("HOST: ");
-    Serial.print(report->mods);
-    Serial.print(" ");
-    Serial.print(report->keys[0]);
-    Serial.print("\r\n");
+    //Serial.print("HOST: ");
+    //Serial.print(report->mods);
+    //Serial.print(" ");
+    //Serial.print(report->keys[0]);
+    //Serial.print("\r\n");
 
     send_report_bluetooth(report);
 }

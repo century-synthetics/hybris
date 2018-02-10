@@ -25,7 +25,7 @@ void init_bluetooth() {
   Bluefruit.begin();
   Bluefruit.setName(ADVERTISE_NAME);
   Bluefruit.setTxPower(4);
-  //Bluefruit.autoConnLed(false);
+  Bluefruit.autoConnLed(false);
 
   bledis.setManufacturer(MANUFACTURER_NAME);
   bledis.setModel(MODEL_NAME);

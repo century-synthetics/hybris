@@ -63,13 +63,13 @@ void process_action(keyrecord_t *record)
 #endif
     if (IS_NOEVENT(event)) { return; }
 
-        Serial.print(event.key.row);
-        Serial.print(" ");
-        Serial.print(event.key.col);
-        Serial.print("\r\n");
+        // Serial.print(event.key.row);
+        // Serial.print(" ");
+        // Serial.print(event.key.col);
+        // Serial.print("\r\n");
 
     action_t action = layer_switch_get_action(event);
-    Serial.print("ACTION: "); debug_action(action);
+    // Serial.print("ACTION: "); debug_action(action);
 #ifndef NO_ACTION_LAYER
     dprint(" layer_state: "); layer_debug();
     dprint(" default_layer_state: "); default_layer_debug();
@@ -403,13 +403,13 @@ void register_code(uint8_t code)
 
     else if IS_KEY(code) {
         {
-            Serial.print("It's a Key!\r\n");
+            // Serial.print("It's a Key!\r\n");
             add_key(code);
             send_keyboard_report();
         }
     }
     else if IS_MOD(code) {
-        Serial.print("It's a Modifier!\r\n");
+        // Serial.print("It's a Modifier!\r\n");
         add_mods(MOD_BIT(code));
         send_keyboard_report();
     }
@@ -579,25 +579,25 @@ void debug_record(keyrecord_t record)
 void debug_action(action_t action)
 {
     switch (action.kind.id) {
-        case ACT_LMODS:             Serial.print("ACT_LMODS");             break;
-        case ACT_RMODS:             Serial.print("ACT_RMODS");             break;
-        case ACT_LMODS_TAP:         Serial.print("ACT_LMODS_TAP");         break;
-        case ACT_RMODS_TAP:         Serial.print("ACT_RMODS_TAP");         break;
-        case ACT_USAGE:             Serial.print("ACT_USAGE");             break;
-        case ACT_MOUSEKEY:          Serial.print("ACT_MOUSEKEY");          break;
-        case ACT_LAYER:             Serial.print("ACT_LAYER");             break;
-        case ACT_LAYER_TAP:         Serial.print("ACT_LAYER_TAP");         break;
-        case ACT_LAYER_TAP_EXT:     Serial.print("ACT_LAYER_TAP_EXT");     break;
-        case ACT_MACRO:             Serial.print("ACT_MACRO");             break;
-        case ACT_COMMAND:           Serial.print("ACT_COMMAND");           break;
-        case ACT_FUNCTION:          Serial.print("ACT_FUNCTION");          break;
-        default:                    Serial.print("UNKNOWN");               break;
+        case ACT_LMODS:             break;
+        case ACT_RMODS:             break;
+        case ACT_LMODS_TAP:         break;
+        case ACT_RMODS_TAP:         break;
+        case ACT_USAGE:             break;
+        case ACT_MOUSEKEY:          break;
+        case ACT_LAYER:             break;
+        case ACT_LAYER_TAP:         break;
+        case ACT_LAYER_TAP_EXT:     break;
+        case ACT_MACRO:             break;
+        case ACT_COMMAND:           break;
+        case ACT_FUNCTION:          break;
+        default:                    break;
     }
-    Serial.print(action.kind.param>>8);
-    Serial.print(action.kind.param&0xff);
-    Serial.print(" ");
-    Serial.print(action.key.mods);
-    Serial.print(" ");
-    Serial.print(action.key.code);
-    Serial.print("\r\n");
+    // Serial.print(action.kind.param>>8);
+    // Serial.print(action.kind.param&0xff);
+    // Serial.print(" ");
+    // Serial.print(action.key.mods);
+    // Serial.print(" ");
+    // Serial.print(action.key.code);
+    // Serial.print("\r\n");
 }
