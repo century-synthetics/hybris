@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host.h"
 #include "util.h"
 #include "bluetooth.h"
-#include "keypress.h"
 
 #ifdef NKRO_ENABLE
 bool keyboard_nkro = true;

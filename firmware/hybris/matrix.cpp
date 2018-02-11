@@ -42,7 +42,7 @@ void matrix_init(void)
   pinMode(COL_LATCH_PIN, OUTPUT);
 
   // initialize row and col
-  unselect_rows();
+  select_all_rows();
   init_cols();
 
   // initialize matrix state: all keys off
@@ -55,14 +55,13 @@ void matrix_init(void)
 uint8_t matrix_scan(void)
 {
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        unselect_rows();
         select_row(i);
-        delayMicroseconds(5);
         matrix_row_t rows = read_cols();
         if (matrix_debouncing[i] != rows) {
             matrix_debouncing[i] = rows;
             debouncing = DEBOUNCE;
         }
-        unselect_rows();
     }
 
     if (debouncing) {
@@ -119,6 +118,14 @@ static void unselect_rows(void)
   {
     digitalWrite(row_pins[row], LOW);
   }
+}
+
+void select_all_rows(void)
+{
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++)
+    {
+      digitalWrite(row_pins[row], HIGH);
+    }
 }
 
 static void select_row(uint8_t row)

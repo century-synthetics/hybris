@@ -24,7 +24,7 @@ void setup(void) {
   keyboard_init();
   start_advertising();
 
-  attachInterrupt(digitalPinToInterrupt(COL_SENSE_PIN), col_sense_interrupt, FALLING);
+  attachInterrupt(digitalPinToInterrupt(COL_SENSE_PIN), col_sense_interrupt, RISING);
 }
 
 void loop() {

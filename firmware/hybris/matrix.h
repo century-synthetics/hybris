@@ -64,6 +64,8 @@ matrix_row_t matrix_get_row(uint8_t row);
 void matrix_print(void);
 /* clear matrix */
 void matrix_clear(void);
+/* set matrix to all rows high */
+void select_all_rows(void);
 
 #ifdef MATRIX_HAS_GHOST
 bool matrix_has_ghost_in_row(uint8_t row);
