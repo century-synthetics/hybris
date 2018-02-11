@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host.h"
 #include "util.h"
 #include "bluetooth.h"
+#include "keypress.h"
 
 #ifdef NKRO_ENABLE
 bool keyboard_nkro = true;
@@ -48,13 +49,8 @@ uint8_t host_keyboard_leds(void)
 /* send report */
 void host_keyboard_send(report_keyboard_t *report)
 {
-    //Serial.print("HOST: ");
-    //Serial.print(report->mods);
-    //Serial.print(" ");
-    //Serial.print(report->keys[0]);
-    //Serial.print("\r\n");
-
-    send_report_bluetooth(report);
+    if (!driver) return;
+    (*driver->send_keyboard)(report);
 }
 
 void host_mouse_send(report_mouse_t *report)

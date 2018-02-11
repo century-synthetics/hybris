@@ -4,13 +4,77 @@
 #include "config.h"
 #include "bluetooth.h"
 #include "keycode.h"
+#include "host_driver.h"
+#include "host.h"
+#include "keypress.h"
 
 BLEHidAdafruit blehid;
 BLEBas blebas;
 BLEDis bledis;
 
-void send_report_bluetooth(report_keyboard_t *report) {
-  blehid.keyboardReport(report->mods, report->keys[0], report->keys[1], report->keys[2], report->keys[3], report->keys[4], report->keys[5]);
+static uint8_t keyboard_leds(void);
+static void send_keyboard(report_keyboard_t *report);
+static void send_mouse(report_mouse_t *report);
+static void send_system(uint16_t data);
+static void send_consumer(uint16_t data);
+
+static host_driver_t driver = {
+        keyboard_leds,
+        send_keyboard,
+        send_mouse,
+        send_system,
+        send_consumer
+};
+
+host_driver_t *nrf52_driver(void)
+{
+    return &driver;
+}
+
+static uint8_t keyboard_leds(void) {
+    return usb_keyboard_leds;
+}
+
+static void send_keyboard(report_keyboard_t *report)
+{
+    Serial.print("HOST: ");
+    Serial.print(report->mods);
+    Serial.print(" ");
+    Serial.print(report->keys[0]);
+    Serial.print("");
+    uint32_t sum = report->mods;
+    for (uint8_t i = 0; i < 6; i++) {
+        sum |= report->keys[i];
+    }
+    Serial.print(sum);
+    Serial.print("\r\n");
+
+    if(sum == 0) {
+        set_key_pressed(false);
+    }
+
+    blehid.keyboardReport(report->mods, report->keys[0], report->keys[1], report->keys[2], report->keys[3], report->keys[4], report->keys[5]);
+}
+
+static void send_mouse(report_mouse_t *report)
+{
+#ifdef MOUSE_ENABLE
+    usb_mouse_send(report->x, report->y, report->v, report->h, report->buttons);
+#endif
+}
+
+static void send_system(uint16_t data)
+{
+#ifdef EXTRAKEY_ENABLE
+    usb_extra_system_send(data);
+#endif
+}
+
+static void send_consumer(uint16_t data)
+{
+#ifdef EXTRAKEY_ENABLE
+    usb_extra_consumer_send(data);
+#endif
 }
 
 void update_battery(uint8_t bat_percentage) {
@@ -42,6 +106,8 @@ void init_bluetooth() {
   blebas.write(100);
 
   blehid.begin();
+
+  host_set_driver(nrf52_driver);
 }
 
 void start_advertising() {
