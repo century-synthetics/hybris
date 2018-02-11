@@ -38,7 +38,7 @@ typedef  uint32_t   matrix_row_t;
 #endif
 
 #define MATRIX_IS_ON(row, col)  (matrix_get_row(row) && (1<<col))
-
+#define ROW_SETTLE_TIME_US 20
 
 #ifdef __cplusplus
 extern "C" {

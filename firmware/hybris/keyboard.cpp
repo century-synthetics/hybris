@@ -131,18 +131,12 @@ void keyboard_task(void)
                     hook_matrix_change(e);
                     // record a processed key
                     matrix_prev[r] ^= col_mask;
-
-                    // This can miss stroke when scan matrix takes long like Topre
-                    // process a key per task call
-                    //goto MATRIX_LOOP_END;
                 }
             }
         }
     }
     // call with pseudo tick event when no real key event.
     action_exec(TICK);
-
-//MATRIX_LOOP_END:
 
     hook_keyboard_loop();
 

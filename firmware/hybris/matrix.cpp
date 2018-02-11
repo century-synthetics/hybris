@@ -37,8 +37,7 @@ void matrix_init(void)
   {
     pinMode(row_pins[row], OUTPUT);
   }
-
-  pinMode(COL_SENSE_PIN, INPUT_PULLDOWN);
+  
   pinMode(COL_LATCH_PIN, OUTPUT);
 
   // initialize row and col
@@ -62,6 +61,7 @@ uint8_t matrix_scan(void)
             matrix_debouncing[i] = rows;
             debouncing = DEBOUNCE;
         }
+        unselect_rows();
     }
 
     if (debouncing) {
@@ -118,6 +118,8 @@ static void unselect_rows(void)
   {
     digitalWrite(row_pins[row], LOW);
   }
+
+  delayMicroseconds(ROW_SETTLE_TIME_US);
 }
 
 void select_all_rows(void)
@@ -126,11 +128,15 @@ void select_all_rows(void)
     {
       digitalWrite(row_pins[row], HIGH);
     }
+
+    delayMicroseconds(ROW_SETTLE_TIME_US);
 }
 
 static void select_row(uint8_t row)
 {
   digitalWrite(row_pins[row], HIGH);
+
+  delayMicroseconds(ROW_SETTLE_TIME_US);
 }
 
 void matrix_print(void)

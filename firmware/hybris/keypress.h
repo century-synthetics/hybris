@@ -10,4 +10,12 @@ bool is_key_pressed();
  */
 void set_key_pressed(bool state);
 
+/** keypress ISR callback
+ */
+void col_sense_interrupt();
+
+/** keypress interrupt setup
+*/
+void keypress_init();
+
 #endif

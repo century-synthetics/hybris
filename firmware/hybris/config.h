@@ -23,6 +23,9 @@
     #define COL_PULSE_WIDTH_USEC 5
     #define ROW_PINS { A0, A1, A2, A3, A4, A5 }
 
+    #define ENCODER_A_PIN 7
+    #define ENCODER_C_PIN 15
+
     #define CAPS_LED 25
 
     #define DEBOUNCE 5
