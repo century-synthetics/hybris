@@ -41,7 +41,7 @@ void encoder_init(void) {
 void encoder_task() {
     uint8_t encoderPin = digitalRead(ENCODER_A_PIN);
 
-    delayMicroseconds(128);
+    delayMicroseconds(512);
 
     if(encoderPin == LOW && encoder_direction == ENCODER_DIRECTION_UP) {
         Serial.print("UP");
