@@ -1,6 +1,9 @@
 #ifndef ENCODER_H
 #define ENCODER_H
 
+#define ENCODER_DIRECTION_UP 1
+#define ENCODER_DIRECTION_DOWN 0
+
 /** encoder ISR callback
  */
 void encoder_interrupt(void);

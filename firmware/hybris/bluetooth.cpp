@@ -7,7 +7,6 @@
 #include "host_driver.h"
 #include "host.h"
 #include "keypress.h"
-#include "matrix.h"
 
 BLEHidAdafruit blehid;
 BLEBas blebas;
@@ -52,7 +51,6 @@ static void send_keyboard(report_keyboard_t *report)
 
     if(sum == 0) {
         set_key_pressed(false);
-        select_all_rows();
     }
 
     blehid.keyboardReport(report->mods, report->keys[0], report->keys[1], report->keys[2], report->keys[3], report->keys[4], report->keys[5]);
@@ -81,6 +79,11 @@ static void send_consumer(uint16_t data)
 
 void update_battery(uint8_t bat_percentage) {
   blebas.write(bat_percentage);
+}
+
+void send_encoder_report(uint16_t usage_code) {
+  blehid.consumerKeyPress(usage_code);
+  blehid.consumerKeyRelease();
 }
 
 bool is_bluetooth_connected() {
