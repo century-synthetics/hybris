@@ -11,10 +11,11 @@
 
     #define NO_ACTION_TAPPING true
     #define MATRIX_HAS_GHOST true
+    #define EXTRAKEY_ENABLE true
 
     /* key matrix size */
     #define MATRIX_ROWS 6
-    #define MATRIX_COLS 21
+    #define MATRIX_COLS 22
 
     #define VBAT 31
 

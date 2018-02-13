@@ -37,7 +37,7 @@ void matrix_init(void)
   {
     pinMode(row_pins[row], OUTPUT);
   }
-  
+
   pinMode(COL_LATCH_PIN, OUTPUT);
 
   // initialize row and col

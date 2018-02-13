@@ -71,6 +71,8 @@ void host_consumer_send(uint16_t report)
     if (report == last_consumer_report) return;
     last_consumer_report = report;
 
+    if (!driver) return;
+    (*driver->send_consumer)(report);
 }
 
 uint16_t host_last_system_report(void)

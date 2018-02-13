@@ -68,12 +68,18 @@ static void send_mouse(report_mouse_t *report)
 static void send_system(uint16_t data)
 {
 #ifdef EXTRAKEY_ENABLE
-    usb_extra_system_send(data);
+//    usb_extra_system_send(data);
 #endif
 }
 
 static void send_consumer(uint16_t data)
 {
+    Serial.print("HOST: ");
+    Serial.print(data);
+    Serial.print(" ");
+    Serial.print(HID_USAGE_CONSUMER_MUTE);
+    Serial.print("\r\n");
+
     blehid.consumerReport(data);
 }
 
