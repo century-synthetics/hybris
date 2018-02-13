@@ -4,6 +4,7 @@
  */
 #ifndef BLUETOOTH_H
     #define BLUETOOTH_H
+    #include "host.h"
 
     void init_bluetooth();
     void send_encoder_report(uint16_t usage_code);

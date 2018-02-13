@@ -26,7 +26,8 @@
     #define ENCODER_A_PIN 7
     #define ENCODER_C_PIN 15
 
-    #define CAPS_LED 25
+    #define CHARGE_INDICATOR_LED_PIN 25
+    #define CONNECTED_INDICATOR_LED_PIN 27
 
     #define DEBOUNCE 5
 
