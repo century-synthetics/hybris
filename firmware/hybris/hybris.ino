@@ -7,6 +7,7 @@
 #include "keypress.h"
 #include "encoder.h"
 #include "indicators.h"
+#include "battery.h"
 
 
 void setup(void) {
@@ -22,6 +23,7 @@ void setup(void) {
   encoder_init();
   keyboard_init();
   indicators_init();
+  battery_init();
   start_advertising();
 }
 
@@ -35,6 +37,8 @@ void loop() {
   }
 
   connected_led_task();
+  charging_led_task();
+  battery_task();
   
   __WFI();
 }

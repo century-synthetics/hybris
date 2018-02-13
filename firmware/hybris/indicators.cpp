@@ -25,6 +25,9 @@ void connected_led_task() {
 }
 
 void indicators_init() {
+    pinMode(CHARGE_INDICATOR_LED_PIN, OUTPUT);
+    analogWrite(CHARGE_INDICATOR_LED_PIN, LED_OFF);
+
     pinMode(CONNECTED_INDICATOR_LED_PIN, OUTPUT);
     analogWrite(CONNECTED_INDICATOR_LED_PIN, LED_OFF);
 }

@@ -104,12 +104,13 @@ A2   - Row 3
 A3   - Row 4
 A4   - Row 5
 A5   - Row 6
-16   - Encoder SW (active low)
-15   - Encoder OUT B
-7    - Encoder OUT A
-11   - Wake sense
-31   - BAT ADC (N/C)
 SCK  - Shift Register CLK
-30   - Shift Register LATCH (active low)
 MOSI - Shift Register Data IN
+16   - Encoder OUT B
+15   - Encoder OUT A
+7    - Wake sense
+11   - Shift Register LATCH (active low)
+31   - BAT ADC (N/C)
+30   - Charging indicator LED
+27   - Connection indicator LED
 ```

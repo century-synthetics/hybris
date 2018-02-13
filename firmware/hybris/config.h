@@ -17,18 +17,16 @@
     #define MATRIX_ROWS 6
     #define MATRIX_COLS 22
 
-    #define VBAT 31
+    #define ENCODER_A_PIN 15
+    #define ENCODER_C_PIN 16
 
-    #define COL_SENSE_PIN 11
-    #define COL_LATCH_PIN 30
+    #define COL_SENSE_PIN 7
+    #define COL_LATCH_PIN 11
     #define COL_PULSE_WIDTH_USEC 5
     #define ROW_PINS { A0, A1, A2, A3, A4, A5 }
 
-    #define ENCODER_A_PIN 7
-    #define ENCODER_C_PIN 15
-
-    #define CHARGE_INDICATOR_LED_PIN 25
-    #define CONNECTED_INDICATOR_LED_PIN 27
+    #define CONNECTED_INDICATOR_LED_PIN 30
+    #define CHARGE_INDICATOR_LED_PIN 27
 
     #define DEBOUNCE 5
 

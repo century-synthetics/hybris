@@ -39,15 +39,13 @@ void encoder_init(void) {
 }
 
 void encoder_task() {
+    delay(1);
+
     uint8_t encoderPin = digitalRead(ENCODER_A_PIN);
 
-    delayMicroseconds(512);
-
     if(encoderPin == LOW && encoder_direction == ENCODER_DIRECTION_UP) {
-        Serial.print("UP");
         send_encoder_report(HID_USAGE_CONSUMER_VOLUME_INCREMENT);
     } else if(encoderPin == HIGH && encoder_direction == ENCODER_DIRECTION_DOWN) {
-        Serial.print("DOWN");
         send_encoder_report(HID_USAGE_CONSUMER_VOLUME_DECREMENT);
     }
 

@@ -8,6 +8,7 @@
 #include "host.h"
 #include "keypress.h"
 #include "matrix.h"
+#include "battery.h"
 
 BLEHidAdafruit blehid;
 BLEBas blebas;
@@ -55,6 +56,8 @@ static void send_keyboard(report_keyboard_t *report)
         select_all_rows();
     }
 
+    battery_tick();
+
     blehid.keyboardReport(report->mods, report->keys[0], report->keys[1], report->keys[2], report->keys[3], report->keys[4], report->keys[5]);
 }
 
@@ -76,8 +79,6 @@ static void send_consumer(uint16_t data)
 {
     Serial.print("HOST: ");
     Serial.print(data);
-    Serial.print(" ");
-    Serial.print(HID_USAGE_CONSUMER_MUTE);
     Serial.print("\r\n");
 
     blehid.consumerReport(data);
