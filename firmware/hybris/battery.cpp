@@ -8,8 +8,8 @@ uint8_t counter = 0;
 uint8_t mvToPercent(float mvolts) {
     uint8_t battery_level;
 
-    // Adding a coefficient since the full charge on lipo is 4.2V
-    mvolts = mvolts - 1200;
+    // Adding a constant since the full charge on lipo is 4.2V
+    mvolts = mvolts - 940;
 
     if (mvolts >= 3000)
     {
