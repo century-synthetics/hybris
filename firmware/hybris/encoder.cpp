@@ -32,8 +32,8 @@ void set_encoder_changed(bool new_state) {
 }
 
 void encoder_init(void) {
-    pinMode(ENCODER_A_PIN, INPUT_PULLUP);
-    pinMode(ENCODER_C_PIN, INPUT_PULLUP);
+    pinMode(ENCODER_A_PIN, INPUT);
+    pinMode(ENCODER_C_PIN, INPUT);
 
     attachInterrupt(digitalPinToInterrupt(ENCODER_C_PIN), encoder_interrupt, FALLING);
 }

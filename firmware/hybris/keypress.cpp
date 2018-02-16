@@ -17,7 +17,7 @@ void col_sense_interrupt() {
 }
 
 void keypress_init() {
-    pinMode(COL_SENSE_PIN, INPUT_PULLDOWN);
+    pinMode(COL_SENSE_PIN, INPUT);
 
     attachInterrupt(digitalPinToInterrupt(COL_SENSE_PIN), col_sense_interrupt, RISING);
 }
