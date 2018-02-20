@@ -106,6 +106,8 @@ void init_bluetooth() {
   bledis.setManufacturer(MANUFACTURER_NAME);
   bledis.setModel(MODEL_NAME);
   bledis.begin();
+  blebas.begin();
+  blehid.begin();
 
   BLECharacteristic pnp_id = BLECharacteristic(UUID16_CHR_PNP_ID);
   pnp_id.setProperties(CHR_PROPS_READ);
@@ -114,10 +116,6 @@ void init_bluetooth() {
   uint8_t pnp_id_data[7] = {0x02, 0x11, 0x23, 0xfe, 0xca, 0x01, 0x00};
   pnp_id.write(pnp_id_data, 7);
 
-  blebas.begin();
-  blebas.write(100);
-
-  blehid.begin();
 
   host_set_driver(nrf52_driver());
 }

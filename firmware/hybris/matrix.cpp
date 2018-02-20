@@ -32,6 +32,7 @@ uint8_t row_pins[MATRIX_ROWS] = ROW_PINS;
 void matrix_init(void)
 {
   SPI.begin();
+  SPI.beginTransaction(SPISettings(8000000, MSBFIRST, SPI_MODE0));
 
   for (uint8_t row = 0; row < MATRIX_ROWS; row++)
   {

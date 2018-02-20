@@ -9,7 +9,7 @@ uint8_t mvToPercent(float mvolts) {
     uint8_t battery_level;
 
     // Adding a constant since the full charge on lipo is 4.2V
-    mvolts = mvolts - 940;
+    mvolts = mvolts - 900;
 
     if (mvolts >= 3000)
     {
@@ -40,7 +40,11 @@ uint8_t mvToPercent(float mvolts) {
 }
 
 void battery_tick() {
-    counter++;
+    if (counter >= 255) {
+        counter = 0;
+    } else {
+        counter++;
+    }
 }
 
 void battery_task() {
