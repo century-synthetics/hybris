@@ -51,7 +51,12 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+# Zip files
+*.zip 
+
+# Project files
 models
 concepts
 hybrisold
+*Status Report*
 

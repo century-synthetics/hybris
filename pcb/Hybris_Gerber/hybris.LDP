@@ -1,0 +1,4 @@
+Layer Pairs Export File for PCB: C:\ProgramData\Altium\CircuitMaker {767C7A54-DCB4-489E-ADEB-0AE0ADB4AD76}\Projects\09EFD8D6-2EC0-404D-AB47-043DB872DB79\c7f1db4b-c3a5-4344-b419-465dd917b24c\hybris.CMPcbDoc
+LayersSetName=Top_Bot_Plated_Thru_Holes|DrillFile=hybris-roundholes-plated.txt|LayerPairs=gtl,gbl
+LayersSetName=Top_Bot_Plated_Slot_Holes|DrillFile=hybris-slotholes-plated.txt|LayerPairs=gtl,gbl
+LayersSetName=Top_Bot_NonPlated_Thru_Holes|DrillFile=hybris-roundholes-nonplated.txt|LayerPairs=gtl,gbl
