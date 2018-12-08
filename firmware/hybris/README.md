@@ -111,6 +111,6 @@ MOSI - Shift Register Data IN
 7    - Wake sense
 11   - Shift Register LATCH (active low)
 31   - BAT ADC (N/C)
-30   - Charging indicator LED
+17   - Charging indicator LED
 27   - Connection indicator LED
 ```

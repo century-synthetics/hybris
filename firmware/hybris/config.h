@@ -25,8 +25,8 @@
     #define COL_PULSE_WIDTH_USEC 5
     #define ROW_PINS { A0, A1, A2, A3, A4, A5 }
 
-    #define CONNECTED_INDICATOR_LED_PIN 30
-    #define CHARGE_INDICATOR_LED_PIN 27
+    #define CONNECTED_INDICATOR_LED_PIN 27
+    #define CHARGE_INDICATOR_LED_PIN 17
 
     #define DEBOUNCE 5
 
