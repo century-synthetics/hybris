@@ -15,7 +15,7 @@
 
     /* key matrix size */
     #define MATRIX_ROWS 6
-    #define MATRIX_COLS 22
+    #define MATRIX_COLS 24
 
     #define ENCODER_A_PIN 15
     #define ENCODER_C_PIN 16

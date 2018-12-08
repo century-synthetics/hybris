@@ -108,7 +108,7 @@ static matrix_row_t read_cols(void)
   uint8_t register2 = SPI.transfer(0);
   uint8_t register3 = SPI.transfer(0);
 
-  row_read = register3 << 16 | register2 << 8 | register1;
+  row_read = register1 << 16 | register2 << 8 | register3;
 
   return row_read;
 }
