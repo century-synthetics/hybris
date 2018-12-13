@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------------
-NCDrill File Report For: hybris.CMPcbDoc   27/11/2018  11:40:05 PM
+NCDrill File Report For: hybris.CMPcbDoc   12/12/2018  11:40:08 PM
 ---------------------------------------------------------------------------
 
 Layer Pair : Top Layer to Bottom Layer
@@ -12,18 +12,18 @@ Tool         Hole Size           Hole Type     Hole Count Plated       Tool Trav
 ---------------------------------------------------------------------------
 T1        0.5mm (19.685mil)        Slot           2                7424.73 mm (292.31 Inch)
 T2        0.55mm (21.654mil)       Slot           2                7421.54 mm (292.19 Inch)
-T3        0.7112mm (28mil)         Round          98               1403.06 mm (55.24 Inch)
-T4        1mm (39.37mil)           Round          208              2894.39 mm (113.95 Inch)
+T3        0.7112mm (28mil)         Round          99               1423.96 mm (56.06 Inch)
+T4        1mm (39.37mil)           Round          208              2853.30 mm (112.33 Inch)
 T5        1.016mm (40mil)          Round          5                34.00 mm (1.34 Inch)
-T6        1.75mm (68.898mil)       Round          208              2844.76 mm (112.00 Inch)
+T6        1.75mm (68.898mil)       Round          208              2765.21 mm (108.87 Inch)
 T7        2.6mm (102.362mil)       Round          2                12.06 mm (0.47 Inch)
 T8        0.9mm (35.433mil)        Round          2         NPTH   6.80 mm (0.27 Inch)
-T9        1.75mm (68.898mil)       Round          208       NPTH   3172.81 mm (124.91 Inch)
-T10       2mm (78.74mil)           Round          8         NPTH   1258.28 mm (49.54 Inch)
+T9        1.75mm (68.898mil)       Round          208       NPTH   3223.17 mm (126.90 Inch)
+T10       2mm (78.74mil)           Round          9         NPTH   1261.01 mm (49.65 Inch)
 T11       3mm (118.11mil)          Round          5         NPTH   640.58 mm (25.22 Inch)
-T12       3.048mm (120mil)         Round          16        NPTH   724.10 mm (28.51 Inch)
-T13       3.9878mm (157mil)        Round          120       NPTH   2768.84 mm (109.01 Inch)
+T12       3.048mm (120mil)         Round          16        NPTH   726.02 mm (28.58 Inch)
+T13       3.9878mm (157mil)        Round          120       NPTH   2746.14 mm (108.12 Inch)
 ---------------------------------------------------------------------------
-Totals                                            884              30605.97 mm (1204.96 Inch)
+Totals                                            886              30538.52 mm (1202.30 Inch)
 
 Total Processing Time (hh:mm:ss) : 00:00:01
