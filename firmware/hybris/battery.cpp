@@ -52,7 +52,7 @@ void battery_tick() {
 void battery_task() {
     if(counter == 0) {
         raw = analogRead(VBAT_PIN);
-        percent = mvToPercent(raw)
+        percent = mvToPercent(raw);
 
         delay(1);
 

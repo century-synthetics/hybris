@@ -8,6 +8,7 @@
 #include "encoder.h"
 #include "indicators.h"
 #include "battery.h"
+#include "charger.h"
 
 
 void setup(void) {
@@ -32,10 +33,7 @@ void loop() {
     keyboard_task();
   }
 
-  if (charger_present()) {
-    charger_task();
-  }
-
+  charger_task();
   connected_led_task();
   charging_led_task();
   battery_task();
