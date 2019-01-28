@@ -3,12 +3,10 @@
 #include "indicators.h"
 #include "bluetooth.h"
 #include "config.h"
+#include "charger.h"
 
 bool connected_state = false;
 bool charging_state = false;
-
-void charging_led_task() {
-}
 
 void connected_led_task() {
     bool current_state = is_bluetooth_connected();
@@ -24,10 +22,25 @@ void connected_led_task() {
     connected_state = current_state;
 }
 
-void indicators_init() {
-    pinMode(CHARGE_INDICATOR_LED_PIN, OUTPUT);
-    analogWrite(CHARGE_INDICATOR_LED_PIN, LED_OFF);
+void charging_led_task() {
+    bool current_state = charger_present();
 
+    // When USB is present and the battery is not at full charge, animate the LED
+    // When USB is present and the battery is fully charged, turn the LED on solid
+    // When USB is not present set the LED to off
+    if(current_state == true) {
+        charging_state = true;
+        analogWrite(CONNECTED_INDICATOR_LED_PIN, LED_ON);
+    } else if (current_state != charging_state) {
+        charging_state = false;
+        analogWrite(CONNECTED_INDICATOR_LED_PIN, LED_OFF);
+    }
+}
+
+void indicators_init() {
     pinMode(CONNECTED_INDICATOR_LED_PIN, OUTPUT);
     analogWrite(CONNECTED_INDICATOR_LED_PIN, LED_OFF);
+
+    pinMode(CHARGE_INDICATOR_LED_PIN, OUTPUT);
+    analogWrite(CHARGE_INDICATOR_LED_PIN, LED_OFF);
 }

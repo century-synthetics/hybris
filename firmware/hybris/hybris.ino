@@ -19,6 +19,7 @@ void setup(void) {
   keyboard_init();
   indicators_init();
   battery_init();
+  charger_init();
   start_advertising();
 }
 
@@ -29,6 +30,10 @@ void loop() {
   
   if (is_key_pressed()) {
     keyboard_task();
+  }
+
+  if (charger_present()) {
+    charger_task();
   }
 
   connected_led_task();

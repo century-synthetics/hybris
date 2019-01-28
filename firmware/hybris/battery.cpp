@@ -4,6 +4,8 @@
 #include "bluetooth.h"
 
 uint8_t counter = 0;
+uint8_t raw = 0;
+uint8_t percent = 0;
 
 uint8_t mvToPercent(float mvolts) {
     uint8_t battery_level;
@@ -49,7 +51,8 @@ void battery_tick() {
 
 void battery_task() {
     if(counter == 0) {
-        int raw = analogRead(VBAT_PIN);
+        raw = analogRead(VBAT_PIN);
+        percent = mvToPercent(raw)
 
         delay(1);
 
@@ -59,10 +62,14 @@ void battery_task() {
         Serial.print(mvToPercent(raw));
         Serial.print("\r\n");
 
-        update_battery(mvToPercent(raw));
+        update_battery(percent);
 
         counter++;
     }
+}
+
+uint8_t battery_get_percentage() {
+    return percent;
 }
 
 void battery_init() {

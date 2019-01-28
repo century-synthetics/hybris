@@ -19,4 +19,7 @@ void battery_tick();
 // init the ADC to work with the math provided in the vendor example
 void battery_init();
 
+// get the percent charge from the adc
+uint8_t battery_get_percentage();
+
 #endif
