@@ -23,12 +23,15 @@ void connected_led_task() {
 }
 
 void charging_led_task() {
-    bool current_state = charger_present();
+    charging_state = charger_present();
+    int battery_level = battery_get_percentage();
 
     // When USB is present and the battery is not at full charge, animate the LED
     // When USB is present and the battery is fully charged, turn the LED on solid
     // When USB is not present set the LED to off
-    if(current_state == true) {
+    if(current_state == true && battery_level !== 100) {
+        analogWrite(CONNECTED_INDICATOR_LED_PIN, get_level());
+    } else if(current_state == true) {
         charging_state = true;
         analogWrite(CONNECTED_INDICATOR_LED_PIN, LED_ON);
     } else if (current_state != charging_state) {

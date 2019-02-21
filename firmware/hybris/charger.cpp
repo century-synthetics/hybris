@@ -11,7 +11,7 @@ void charger_interrupt() {
 
 void charger_init() {
     pinMode(CHARGER_PRESENCE_PIN, INPUT);
-
+    charger_interrupt();
     attachInterrupt(digitalPinToInterrupt(CHARGER_PRESENCE_PIN), charger_interrupt, CHANGE);
 }
 

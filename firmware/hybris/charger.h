@@ -7,7 +7,7 @@
 // main loop task
 void charger_task();
 
-// tick with each keypress. On overflow, update the battery level
+// true if the usb charger is plugged in
 bool charger_present();
 
 // init the interrupt for listening to USB presence
